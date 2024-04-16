@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: staging
+    database: database_name
+    schema: schema_name
+    tables:
+      - name: category
+      - name: destination
+      - name: provinces
+      - name: provinces_destinations
+      - name: exportaciones_categoria
+      - name: exportaciones_destinos
+
