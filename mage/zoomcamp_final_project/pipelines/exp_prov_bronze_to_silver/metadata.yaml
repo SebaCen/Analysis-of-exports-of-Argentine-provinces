@@ -1,0 +1,256 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - trasf_prov_categ
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_prov_categ_from_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_prov_categ_from_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transform_dest_prov
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_prov_dest_from_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_prov_dest_from_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - create_dim_destin
+  - create_dim_province_dest
+  - add_id_dest_prov
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_dest_prov
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_prov_dest_from_gcs
+  uuid: transform_dest_prov
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_id_dest_prov
+  - prov_dest_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: create_dim_destin
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_dest_prov
+  uuid: create_dim_destin
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_id_dest_prov
+  - prov_dest_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: create_dim_province_dest
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_dest_prov
+  uuid: create_dim_province_dest
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - prov_dest_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_id_dest_prov
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - create_dim_province_dest
+  - create_dim_destin
+  - transform_dest_prov
+  uuid: add_id_dest_prov
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - create_dim_category
+  - create_dim_province
+  - add_id_prov_categ
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trasf_prov_categ
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_prov_categ_from_gcs
+  uuid: trasf_prov_categ
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_id_prov_categ
+  - prov_categ_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: create_dim_category
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - trasf_prov_categ
+  uuid: create_dim_category
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_id_prov_categ
+  - prov_categ_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: create_dim_province
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - trasf_prov_categ
+  uuid: create_dim_province
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - prov_categ_bronze_to_silver
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_id_prov_categ
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - trasf_prov_categ
+  - create_dim_category
+  - create_dim_province
+  uuid: add_id_prov_categ
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prov_categ_bronze_to_silver
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - add_id_prov_categ
+  - create_dim_category
+  - create_dim_province
+  uuid: prov_categ_bronze_to_silver
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prov_dest_bronze_to_silver
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - add_id_dest_prov
+  - create_dim_destin
+  - create_dim_province_dest
+  uuid: prov_dest_bronze_to_silver
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: monitor
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: monitor
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-03-20 21:01:29.371348+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: exp_prov_bronze_to_silver
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: exp_prov_bronze_to_silver
+variables_dir: /home/src/mage_data/zoomcamp_final_project
+widgets: []
