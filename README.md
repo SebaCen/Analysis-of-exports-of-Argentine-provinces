@@ -18,9 +18,9 @@ This pipeline is deployed in the cloud using  tools such infrastructure as code 
 ## Quick Links
 - [Objectives](#objectives)
 - [Introduction](#introduction)
+    - [Architecture](#architecture)
     - [Dataset Interest](#dataset-interest)
     - [Dataset](#dataset)
-    - [Architecture](#architecture)
 - [Development](#development)
     - [Tools](#tools)
     - [Pipeline](#pipeline)
@@ -38,6 +38,15 @@ This pipeline is deployed in the cloud using  tools such infrastructure as code 
 
 ---
 ## Introduction
+
+### Architecture
+
+To carry out this project, the following architecture was used:
+
+![Arquitectura](img/Arquitectura.gif)
+
+The data flow begins with the ingestion of data from the API to the data lake, the medallion architecture technique is used where the raw data is stored in what is called _bronze_ layer of the data lake, then with the objective of ordering them it is perform various operations to clean, process, refine and store them in the _silver_ layer of the data lake.
+Then they go to the last stage of transformations and are stored in the _gold_ layer, already in the data warehouse, where they are ready to be used by business intelligence tools.
 
 ### Dataset Interest:
 
@@ -64,15 +73,6 @@ The data used for this project is taken from the public data platform of the Arg
 This dataset consists of 31 rows and 337 columns, it has the number of exports from each province classified by destination country, its composition can be seen in the following image:
 > <img width="90%" src=img/dataset_exp_dest.png>   
 
-
-### Architecture
-
-To carry out this project, the following architecture was used:
-
-![Arquitectura](img/Arquitectura.gif)
-
-The data flow begins with the ingestion of data from the API to the data lake, the medallion architecture technique is used where the raw data is stored in what is called _bronze_ layer of the data lake, then with the objective of ordering them it is perform various operations to clean, process, refine and store them in the _silver_ layer of the data lake.
-Then they go to the last stage of transformations and are stored in the _gold_ layer, already in the data warehouse, where they are ready to be used by business intelligence tools.
 
 ---
 
